@@ -1,0 +1,12 @@
+TDD Steps:
+
+1. Criação do teste para filtrar por gênero
+2. Teste falhou (função não existia)
+3. Implementação do método filtrar_livros
+4. Teste passou
+
+5. Criação do teste para filtro por preço
+6. Implementação do filtro por preço
+7. Teste passou
+
+8. Refatoração para suportar múltiplos critérios
