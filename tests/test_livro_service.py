@@ -11,7 +11,11 @@ class TestLivroService(unittest.TestCase):
             Livro("Livro B", "Autor 2", 30.0, "Romance"),
             Livro("Livro C", "Autor 3", 40.0, "Fantasia"),
         ]
-
+        
+    def test_lista_vazia(self):
+        resultado = filtrar_livros([])
+        self.assertEqual(len(resultado), 0)
+        
     def test_sem_filtro(self):
         resultado = filtrar_livros(self.livros)
         self.assertEqual(len(resultado), 3)
