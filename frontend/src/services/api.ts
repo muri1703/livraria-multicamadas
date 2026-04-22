@@ -1,19 +1,15 @@
-// LISTA / BUSCA
-export async function getLivros(query?: string) {
+export async function getLivros(query?: string, preco?: string) {
   let url = "http://127.0.0.1:5000/livros";
 
-  if (query && query.trim() !== "") {
-    url += `?q=${encodeURIComponent(query)}`;
+  const params = [];
+
+  if (query) params.push(`q=${encodeURIComponent(query)}`);
+  if (preco) params.push(`preco_min=${preco}`);
+
+  if (params.length > 0) {
+    url += "?" + params.join("&");
   }
 
-  console.log("URL:", url);
-
   const res = await fetch(url);
-  return res.json();
-}
-
-// DETALHE POR ID
-export async function getLivroById(id: string) {
-  const res = await fetch(`http://127.0.0.1:5000/livros/${id}`);
   return res.json();
 }

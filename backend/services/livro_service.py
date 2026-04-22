@@ -1,11 +1,28 @@
-def filtrar_livros(livros, genero=None, preco_max=None):
-    resultado = []
+from repositories.livro_repository import get_all, get_by_id
 
-    for livro in livros:
-        if genero is not None and livro.genero != genero:
-            continue
-        if preco_max is not None and livro.preco > preco_max:
-            continue
-        resultado.append(livro)
+def listar_livros(query=None, preco_min=None):
+    livros = get_all()
 
-    return resultado
+    # filtro por busca (titulo, autor, genero)
+    if query:
+        query = query.lower()
+        livros = [
+            l for l in livros
+            if query in l["titulo"].lower()
+            or query in l["autor"].lower()
+            or query in l["genero"].lower()
+        ]
+
+    # 🔥 NOVA FEATURE: filtro por preço mínimo
+    if preco_min:
+        try:
+            preco_min = float(preco_min)
+            livros = [l for l in livros if l["preco"] >= preco_min]
+        except:
+            pass
+
+    return livros
+
+
+def buscar_por_id(id):
+    return get_by_id(id)

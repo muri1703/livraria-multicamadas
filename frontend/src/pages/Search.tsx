@@ -15,12 +15,13 @@ export function Search() {
   const [query, setQuery] = useState("");
   const [livros, setLivros] = useState<Livro[]>([]);
   const [loading, setLoading] = useState(false);
+  const [preco, setPreco] = useState("");
 
   const handleSearch = async () => {
     setLoading(true);
 
     try {
-      const data = await getLivros(query);
+      const data = await getLivros(query, preco);
       setLivros(data);
     } catch (error) {
       console.error("Erro ao buscar livros:", error);
@@ -38,10 +39,10 @@ export function Search() {
 
         <div className="flex gap-4">
           <input
-            className="bg-zinc-800 text-white border border-zinc-700 p-4 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-orange-400"
-            placeholder="Buscar por título, autor ou gênero..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Preço mínimo"
+            className="border p-4 rounded-xl"
+            value={preco}
+            onChange={(e) => setPreco(e.target.value)}
           />
 
           <button
