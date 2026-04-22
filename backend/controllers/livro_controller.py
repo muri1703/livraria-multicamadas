@@ -8,7 +8,6 @@ def get_livros():
     livros = listar_livros(query, preco_min)
     return jsonify(livros)
 
-
 def get_livro(id):
     livro = buscar_por_id(id)
 

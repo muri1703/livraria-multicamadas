@@ -17,7 +17,7 @@ export function BookDetail() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getLivroById(String(id));
+      const data = await getLivroById(Number(id));
       setBook(data);
     }
     fetchData();

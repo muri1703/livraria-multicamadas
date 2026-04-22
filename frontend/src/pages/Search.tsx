@@ -13,9 +13,9 @@ type Livro = {
 
 export function Search() {
   const [query, setQuery] = useState("");
+  const [preco, setPreco] = useState("");
   const [livros, setLivros] = useState<Livro[]>([]);
   const [loading, setLoading] = useState(false);
-  const [preco, setPreco] = useState("");
 
   const handleSearch = async () => {
     setLoading(true);
@@ -24,7 +24,7 @@ export function Search() {
       const data = await getLivros(query, preco);
       setLivros(data);
     } catch (error) {
-      console.error("Erro ao buscar livros:", error);
+      console.error("Erro ao buscar:", error);
     }
 
     setLoading(false);
@@ -33,31 +33,41 @@ export function Search() {
   return (
     <div className="space-y-10">
 
-      {/* SEARCH BOX */}
-      <div className="bg-zinc-900 p-8 rounded-3xl shadow-md border border-zinc-800">
-        <h1 className="text-2xl font-bold mb-4 text-white">Buscar livros</h1>
+      {/* FILTROS */}
+      <div className="bg-gray-900 p-8 rounded-3xl shadow-md border border-gray-700">
+        <h1 className="text-2xl font-bold mb-6 text-white">Buscar livros</h1>
 
-        <div className="flex gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+          {/* BUSCA TEXTO */}
           <input
+            className="p-4 rounded-xl bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
+            placeholder="Buscar por título, autor ou gênero..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+
+          {/* FILTRO PREÇO */}
+          <input
+            className="p-4 rounded-xl bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-orange-400"
             placeholder="Preço mínimo"
-            className="border p-4 rounded-xl"
             value={preco}
             onChange={(e) => setPreco(e.target.value)}
           />
 
+          {/* BOTÃO */}
           <button
             onClick={handleSearch}
             className="bg-orange-500 text-white px-6 rounded-xl hover:bg-orange-600 transition"
           >
             Buscar
           </button>
+
         </div>
       </div>
 
       {/* LOADING */}
-      {loading && (
-        <p className="text-gray-400">Carregando...</p>
-      )}
+      {loading && <p className="text-gray-400">Carregando...</p>}
 
       {/* RESULTADOS */}
       {!loading && (
